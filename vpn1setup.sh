@@ -682,7 +682,7 @@ function installOpenVPN () {
 		echo "proto ${PROTOCOL}6" >> /etc/openvpn/server.conf
 	fi
 
-	echo "dev tun
+	echo "dev tun0
 user nobody
 group $NOGROUP
 persist-key
@@ -690,7 +690,10 @@ persist-tun
 keepalive 10 120
 topology subnet
 server 10.0.0.0 255.255.255.0
-ifconfig-pool-persist ipp.txt" >> /etc/openvpn/server.conf
+#ifconfig-pool-persist ipp.txt
+script-security 2
+up /etc/openvpn/server1_up.sh
+down /etc/openvpn/server1_down.sh" >> /etc/openvpn/server.conf
 
 	# DNS resolvers
 	case $DNS in
